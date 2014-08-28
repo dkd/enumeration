@@ -174,7 +174,7 @@ abstract class Enumeration
      * Cast value to enumeration type
      *
      * @param mixed $value Value that has to be casted
-     * @return Enumeration
+     * @return static
      */
     public static function cast($value)
     {
