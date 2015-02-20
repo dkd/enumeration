@@ -214,10 +214,21 @@ class EnumerationTest extends \PHPUnit_Framework_TestCase
      */
     public function getConstantsReturnsArrayOfPossibleValuesWithDefaultIfRequested()
     {
+        $this->assertEquals(
+            array('INTEGER_VALUE' => 1, 'STRING_VALUE' => 'foo', '__DEFAULT' => 1),
+            Enumeration\CompleteEnumeration::getConstants(true)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getConstantsCanBeCalledOnInstances()
+    {
         $enumeration = new Enumeration\CompleteEnumeration();
         $this->assertEquals(
             array('INTEGER_VALUE' => 1, 'STRING_VALUE' => 'foo', '__DEFAULT' => 1),
-            $enumeration::getConstants(true)
+            $enumeration->getConstants(true)
         );
     }
 

@@ -47,7 +47,7 @@ abstract class Enumeration
         if ($value === null) {
             $value = static::__DEFAULT;
         }
-        $this->loadValues();
+        static::loadValues();
         if (!$this->isValid($value)) {
             throw new Exception\InvalidEnumerationValueException(
                 sprintf('Invalid value %s for %s', $value, get_class($this)),
@@ -62,9 +62,9 @@ abstract class Enumeration
      * @throws Exception\InvalidEnumerationDefinitionException
      * @internal param string $class
      */
-    protected function loadValues()
+    protected static function loadValues()
     {
-        $class = get_class($this);
+        $class = get_called_class();
         if (isset(static::$enumConstants[$class])) {
             return;
         }
@@ -163,6 +163,7 @@ abstract class Enumeration
      */
     public static function getConstants($include_default = false)
     {
+        static::loadValues();
         $enumConstants = static::$enumConstants[get_called_class()];
         if (!$include_default) {
             unset($enumConstants['__DEFAULT']);
